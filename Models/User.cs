@@ -7,7 +7,7 @@ namespace ASPFinal.Models
 {
 	public class User
 	{
-		private string name { get; set; }
-		private int ID { get; set; }
+		private string Name { get; set; }
+		private int UserID { get; set; }
 	}
 }
