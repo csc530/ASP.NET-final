@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace ASPFinal.Models
 {
-	public class User
+	public class Account
 	{
-		private string Name { get; set; }
-		private int UserID { get; set; }
+		public string Name { get; set; }
+		public int AccountID { get; set; }
 	}
 }
