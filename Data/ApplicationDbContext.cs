@@ -17,5 +17,6 @@ namespace careerPortals.Data
             : base(options)
         {
         }
+        public DbSet<ASPFinal.Models.JobStatus> JobStatus { get; set; }
     }
 }
