@@ -19,13 +19,13 @@ namespace ASPFinal.Controllers
             _context = context;
         }
 
-        // GET: JobPosts
+        // GET: JobPosts1
         public async Task<IActionResult> Index()
         {
             return View(await _context.JobPosts.ToListAsync());
         }
 
-        // GET: JobPosts/Details/5
+        // GET: JobPosts1/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -43,18 +43,18 @@ namespace ASPFinal.Controllers
             return View(jobPost);
         }
 
-        // GET: JobPosts/Create
+        // GET: JobPosts1/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: JobPosts/Create
+        // POST: JobPosts1/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("JobName,JobPostID,JobStatus,Description,Fulfilled")] JobPost jobPost)
+        public async Task<IActionResult> Create([Bind("JobName,JobPostID,Description,Fulfilled")] JobPost jobPost)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace ASPFinal.Controllers
             return View(jobPost);
         }
 
-        // GET: JobPosts/Edit/5
+        // GET: JobPosts1/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -81,12 +81,12 @@ namespace ASPFinal.Controllers
             return View(jobPost);
         }
 
-        // POST: JobPosts/Edit/5
+        // POST: JobPosts1/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("JobName,JobPostID,JobStatus,Description,Fulfilled")] JobPost jobPost)
+        public async Task<IActionResult> Edit(int id, [Bind("JobName,JobPostID,Description,Fulfilled")] JobPost jobPost)
         {
             if (id != jobPost.JobPostID)
             {
@@ -116,7 +116,7 @@ namespace ASPFinal.Controllers
             return View(jobPost);
         }
 
-        // GET: JobPosts/Delete/5
+        // GET: JobPosts1/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -134,7 +134,7 @@ namespace ASPFinal.Controllers
             return View(jobPost);
         }
 
-        // POST: JobPosts/Delete/5
+        // POST: JobPosts1/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
