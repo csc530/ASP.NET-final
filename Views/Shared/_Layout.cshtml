@@ -30,7 +30,7 @@
 						</li>
 						<input type="text" placeholder="Search🔍" class="" />
 						<!--Also added styles so it looks like just text until focused
-	Figure out action the search bar-->
+						Figure out action the search bar-->
 					</ul>
 					<partial name="_LoginPartial" />
 				</div>
@@ -48,12 +48,15 @@
 			<small>
 				&copy; 2021 - Portals - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> -
 				<a href="https://github.com/csc530/ASP.NET-final.git" target="_blank">< Source Code /></a>
-			Christofer Cousins 1157052 (2021F) COMP-2084G-FDE - Server-Side Scripting ASP.NET</small>
+				Christofer Cousins 1157052 (2021F) COMP-2084G-FDE - Server-Side Scripting ASP.NET
+			</small>
 		</div>
 	</footer>
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="~/js/s>ite.js" asp-append-version="true"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	<!--Sortable table from https://kryogenix.org/code/browser/sorttable/ -->
+	<script src="~/js/sorttable.js" asp-append-version="true"></script>
 	@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
