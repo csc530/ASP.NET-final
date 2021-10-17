@@ -22,12 +22,15 @@
 							<a class="nav-link text-dark" asp-area="" asp-controller="JobPosts" asp-action="Index">Jobs</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="Accounts" asp-action="Index">Proffesionals (because like it's their <i>PROFFESION</i><small>(al)</small></a>
+							<a class="nav-link text-dark" asp-area="" asp-controller="Accounts" asp-action="Index">Proffesionals</a>
 						</li>
 						<li>
-							<input type="text" placeholder="Search🔍" class=""/> <!--Also added styles so it looks like just text until focused
-																			Figure out action the search bar-->
+						<li class="nav-item">
+							<a class="nav-link text-dark" asp-area="" asp-controller="JobStatus" asp-action="Index">Job status</a>
 						</li>
+						<input type="text" placeholder="Search🔍" class="" />
+						<!--Also added styles so it looks like just text until focused
+	Figure out action the search bar-->
 					</ul>
 					<partial name="_LoginPartial" />
 				</div>
