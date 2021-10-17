@@ -11,9 +11,8 @@ namespace ASPFinal.Models
 		[Required]
 		public string JobName { get; set; }
 		[Display(Name = "Job ID")]
-		public int JobPostID { get; set; }
-		[Display(Name ="Completed")]
-		public bool JobComplete { get; set; }
+		public int JobPostID { get; set; }		
+		public String JobStatus { get; set; }
 		[Required, Display(Name ="Posted by: ")]
 		public Account PostedBy { get; set; }
 		public Account FufilledBy { get; set; }

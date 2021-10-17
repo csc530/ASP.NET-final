@@ -12,7 +12,7 @@ namespace ASPFinal.Models
 		public string JobName { get; set; }
 		[Display(Name = "Job ID")]
 		public int JobPostID { get; set; }		
-		public bool JobStatus { get; set; }
+		public String JobStatus { get; set; }
 		[Required, Display(Name ="Posted by: ")]
 		public Account PostedBy { get; set; }
 		public Account FufilledBy { get; set; }

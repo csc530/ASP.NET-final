@@ -10,8 +10,8 @@ using careerPortals.Data;
 namespace careerPortals.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211012143711_NoFamilialReferences3")]
-    partial class NoFamilialReferences3
+    [Migration("20211017153549_copies")]
+    partial class copies
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,6 +29,7 @@ namespace careerPortals.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("AccountID");
@@ -53,10 +54,11 @@ namespace careerPortals.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("JobName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("JobStatus")
-                        .HasColumnType("bit");
+                    b.Property<string>("JobStatus")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("PostedByAccountID")
                         .HasColumnType("int");

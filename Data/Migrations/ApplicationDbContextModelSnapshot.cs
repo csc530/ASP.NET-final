@@ -27,6 +27,7 @@ namespace careerPortals.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("AccountID");
@@ -51,10 +52,11 @@ namespace careerPortals.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("JobName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("JobStatus")
-                        .HasColumnType("bit");
+                    b.Property<string>("JobStatus")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("PostedByAccountID")
                         .HasColumnType("int");
