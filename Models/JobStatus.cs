@@ -9,7 +9,10 @@ namespace ASPFinal.Models
 	public class JobStatus
 	{
 
-		[Key]	
+		[Key, Display(Name ="Job status")]
 		public string Name { get; set; }
+
+		//child ref?
+		public List<JobPost> jobPosts { get; set; }
 	}
 }

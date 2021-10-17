@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using careerPortals.Data;
 
 namespace careerPortals.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211017214003_statusRefacc")]
+    partial class statusRefacc
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,9 +27,6 @@ namespace careerPortals.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("Buisness")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -45,9 +44,6 @@ namespace careerPortals.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AccountId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -60,13 +56,17 @@ namespace careerPortals.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("JobStatusName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("PostedByAccountID")
+                        .HasColumnType("int");
 
                     b.HasKey("JobPostID");
 
-                    b.HasIndex("AccountId");
-
                     b.HasIndex("JobStatusName");
+
+                    b.HasIndex("PostedByAccountID");
 
                     b.ToTable("JobPosts");
                 });
@@ -283,15 +283,17 @@ namespace careerPortals.Data.Migrations
 
             modelBuilder.Entity("ASPFinal.Models.JobPost", b =>
                 {
-                    b.HasOne("ASPFinal.Models.Account", "PostedBy")
-                        .WithMany("JobPosts")
-                        .HasForeignKey("AccountId")
+                    b.HasOne("ASPFinal.Models.JobStatus", "JobStatus")
+                        .WithMany("jobPosts")
+                        .HasForeignKey("JobStatusName")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ASPFinal.Models.JobStatus", "JobStatus")
-                        .WithMany("jobPosts")
-                        .HasForeignKey("JobStatusName");
+                    b.HasOne("ASPFinal.Models.Account", "PostedBy")
+                        .WithMany("JobPosts")
+                        .HasForeignKey("PostedByAccountID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("JobStatus");
 

@@ -10,23 +10,22 @@ using careerPortals.Data;
 
 namespace ASPFinal.Controllers
 {
-    public class JobPostsController : Controller
+    public class AccountsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public JobPostsController(ApplicationDbContext context)
+        public AccountsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: JobPosts
+        // GET: Accounts
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.JobPosts.Include(j => j.PostedBy);
-            return View(await applicationDbContext.ToListAsync());
+            return View(await _context.Accounts.ToListAsync());
         }
 
-        // GET: JobPosts/Details/5
+        // GET: Accounts/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,42 +33,39 @@ namespace ASPFinal.Controllers
                 return NotFound();
             }
 
-            var jobPost = await _context.JobPosts
-                .Include(j => j.PostedBy)
-                .FirstOrDefaultAsync(m => m.JobPostID == id);
-            if (jobPost == null)
+            var account = await _context.Accounts
+                .FirstOrDefaultAsync(m => m.AccountID == id);
+            if (account == null)
             {
                 return NotFound();
             }
 
-            return View(jobPost);
+            return View(account);
         }
 
-        // GET: JobPosts/Create
+        // GET: Accounts/Create
         public IActionResult Create()
         {
-            ViewData["AccountId"] = new SelectList(_context.Accounts, "AccountID", "Name");
             return View();
         }
 
-        // POST: JobPosts/Create
+        // POST: Accounts/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("JobName,JobPostID,AccountId,Description,Fulfilled")] JobPost jobPost)
+        public async Task<IActionResult> Create([Bind("Name,AccountID,Buisness")] Account account)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(jobPost);
+                _context.Add(account);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AccountId"] = new SelectList(_context.Accounts, "AccountID", "Name", jobPost.AccountId);
-            return View(jobPost);
+            return View(account);
         }
 
-        // GET: JobPosts/Edit/5
+        // GET: Accounts/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -77,23 +73,22 @@ namespace ASPFinal.Controllers
                 return NotFound();
             }
 
-            var jobPost = await _context.JobPosts.FindAsync(id);
-            if (jobPost == null)
+            var account = await _context.Accounts.FindAsync(id);
+            if (account == null)
             {
                 return NotFound();
             }
-            ViewData["AccountId"] = new SelectList(_context.Accounts, "AccountID", "Name", jobPost.AccountId);
-            return View(jobPost);
+            return View(account);
         }
 
-        // POST: JobPosts/Edit/5
+        // POST: Accounts/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("JobName,JobPostID,AccountId,Description,Fulfilled")] JobPost jobPost)
+        public async Task<IActionResult> Edit(int id, [Bind("Name,AccountID,Buisness")] Account account)
         {
-            if (id != jobPost.JobPostID)
+            if (id != account.AccountID)
             {
                 return NotFound();
             }
@@ -102,12 +97,12 @@ namespace ASPFinal.Controllers
             {
                 try
                 {
-                    _context.Update(jobPost);
+                    _context.Update(account);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!JobPostExists(jobPost.JobPostID))
+                    if (!AccountExists(account.AccountID))
                     {
                         return NotFound();
                     }
@@ -118,11 +113,10 @@ namespace ASPFinal.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AccountId"] = new SelectList(_context.Accounts, "AccountID", "Name", jobPost.AccountId);
-            return View(jobPost);
+            return View(account);
         }
 
-        // GET: JobPosts/Delete/5
+        // GET: Accounts/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -130,31 +124,30 @@ namespace ASPFinal.Controllers
                 return NotFound();
             }
 
-            var jobPost = await _context.JobPosts
-                .Include(j => j.PostedBy)
-                .FirstOrDefaultAsync(m => m.JobPostID == id);
-            if (jobPost == null)
+            var account = await _context.Accounts
+                .FirstOrDefaultAsync(m => m.AccountID == id);
+            if (account == null)
             {
                 return NotFound();
             }
 
-            return View(jobPost);
+            return View(account);
         }
 
-        // POST: JobPosts/Delete/5
+        // POST: Accounts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var jobPost = await _context.JobPosts.FindAsync(id);
-            _context.JobPosts.Remove(jobPost);
+            var account = await _context.Accounts.FindAsync(id);
+            _context.Accounts.Remove(account);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool JobPostExists(int id)
+        private bool AccountExists(int id)
         {
-            return _context.JobPosts.Any(e => e.JobPostID == id);
+            return _context.Accounts.Any(e => e.AccountID == id);
         }
     }
 }

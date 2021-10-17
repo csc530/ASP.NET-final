@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using careerPortals.Data;
 
 namespace careerPortals.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211017213355_statusRefToPost")]
+    partial class statusRefToPost
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,9 +27,6 @@ namespace careerPortals.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("Buisness")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -45,12 +44,12 @@ namespace careerPortals.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AccountId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("FufilledByAccountID")
+                        .HasColumnType("int");
 
                     b.Property<bool>("Fulfilled")
                         .HasColumnType("bit");
@@ -60,13 +59,19 @@ namespace careerPortals.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("JobStatusName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("PostedByAccountID")
+                        .HasColumnType("int");
 
                     b.HasKey("JobPostID");
 
-                    b.HasIndex("AccountId");
+                    b.HasIndex("FufilledByAccountID");
 
                     b.HasIndex("JobStatusName");
+
+                    b.HasIndex("PostedByAccountID");
 
                     b.ToTable("JobPosts");
                 });
@@ -283,15 +288,21 @@ namespace careerPortals.Data.Migrations
 
             modelBuilder.Entity("ASPFinal.Models.JobPost", b =>
                 {
-                    b.HasOne("ASPFinal.Models.Account", "PostedBy")
-                        .WithMany("JobPosts")
-                        .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("ASPFinal.Models.Account", "FufilledBy")
+                        .WithMany()
+                        .HasForeignKey("FufilledByAccountID");
 
                     b.HasOne("ASPFinal.Models.JobStatus", "JobStatus")
                         .WithMany("jobPosts")
-                        .HasForeignKey("JobStatusName");
+                        .HasForeignKey("JobStatusName")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ASPFinal.Models.Account", "PostedBy")
+                        .WithMany()
+                        .HasForeignKey("PostedByAccountID");
+
+                    b.Navigation("FufilledBy");
 
                     b.Navigation("JobStatus");
 
@@ -347,11 +358,6 @@ namespace careerPortals.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("ASPFinal.Models.Account", b =>
-                {
-                    b.Navigation("JobPosts");
                 });
 
             modelBuilder.Entity("ASPFinal.Models.JobStatus", b =>
