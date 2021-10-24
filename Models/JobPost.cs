@@ -13,11 +13,11 @@ namespace ASPFinal.Models
 		[Display(Name = "Job ID")]
 		public int JobPostID { get; set; }
 		[Required, Display(Name = "Posted by")]
-
-		//why I need the Account ID and only one class variable of type Account IDK
-		public int AccountId {get;set;}
 		public Account PostedBy { get; set; }
-		//public Account FufilledBy { get; set; }
+		//why I need the Account ID and only one class variable of type Account IDK
+		public int AccountId { get; set; }
+		public string PostedByID { get; set; }
+		public string FufilledByID { get; set; }
 
 
 		[Required]
