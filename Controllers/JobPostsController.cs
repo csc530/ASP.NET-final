@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ASPFinal.Models;
 using careerPortals.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ASPFinal.Controllers
 {
+    [Authorize]
     public class JobPostsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -19,6 +21,7 @@ namespace ASPFinal.Controllers
             _context = context;
         }
 
+        [AllowAnonymous]
         // GET: JobPosts
         public async Task<IActionResult> Index()
         {
