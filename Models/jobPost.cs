@@ -8,27 +8,18 @@ namespace ASPFinal.Models
 {
 	public class JobPost
 	{
+		public int JobPostId { get; set; }
+
 		[Required, Display(Name = "Job")]
 		public string JobName { get; set; }
-		[Display(Name = "Job ID")]
-		public int JobPostID { get; set; }
-		[Required, Display(Name = "Posted by")]
-		public Account PostedBy { get; set; }
-		//why I need the Account ID and only one class variable of type Account IDK
-		public int AccountId { get; set; }
-		public string PostedByID { get; set; }
-		public string FufilledByID { get; set; }
+		public int JobStatusId { get; set; }
+		public int PostedById { get; set;}
+		//child reference
 
-
-		[Required]
-		public string Description { get; set; }
-		[Required]
-		public bool Fulfilled { get; set; }
-		
-		[Display(Name ="Staus")]
+		////parent refs
+		//public Account PostedBy { get; set;}
+		[Display(Name = "Status")]
 		public JobStatus JobStatus { get; set; }
-
-		//refs
-		
+		public Account PostedBy { get; set;}
 	}
 }

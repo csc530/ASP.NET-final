@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using careerPortals.Data;
 
 namespace careerPortals.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211101195231_accountToJobpostsBuild")]
+    partial class accountToJobpostsBuild
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,27 +21,9 @@ namespace careerPortals.Data.Migrations
                 .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("ASPFinal.Models.Account", b =>
-                {
-                    b.Property<int>("AccountId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("Buisness")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("AccountId");
-
-                    b.ToTable("Accounts");
-                });
-
             modelBuilder.Entity("ASPFinal.Models.JobPost", b =>
                 {
-                    b.Property<int>("JobPostId")
+                    b.Property<int>("JobPostID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -48,32 +32,30 @@ namespace careerPortals.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("JobStatusId")
-                        .HasColumnType("int");
+                    b.Property<string>("JobStatusName")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("PostedById")
                         .HasColumnType("int");
 
-                    b.HasKey("JobPostId");
+                    b.Property<string>("PostedById1")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.HasIndex("JobStatusId");
+                    b.HasKey("JobPostID");
 
-                    b.HasIndex("PostedById");
+                    b.HasIndex("JobStatusName");
+
+                    b.HasIndex("PostedById1");
 
                     b.ToTable("JobPosts");
                 });
 
             modelBuilder.Entity("ASPFinal.Models.JobStatus", b =>
                 {
-                    b.Property<int>("JobStatusId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("JobStatusId");
+                    b.HasKey("Name");
 
                     b.ToTable("JobStatus");
                 });
@@ -141,6 +123,10 @@ namespace careerPortals.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -192,6 +178,8 @@ namespace careerPortals.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -278,21 +266,31 @@ namespace careerPortals.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("ASPFinal.Models.Account", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Buisness")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("Account");
+                });
+
             modelBuilder.Entity("ASPFinal.Models.JobPost", b =>
                 {
-                    b.HasOne("ASPFinal.Models.JobStatus", "JobStatus")
-                        .WithMany("JobPosts")
-                        .HasForeignKey("JobStatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("ASPFinal.Models.JobStatus", null)
+                        .WithMany("jobPosts")
+                        .HasForeignKey("JobStatusName");
 
                     b.HasOne("ASPFinal.Models.Account", "PostedBy")
                         .WithMany("JobPosts")
-                        .HasForeignKey("PostedById")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("JobStatus");
+                        .HasForeignKey("PostedById1");
 
                     b.Navigation("PostedBy");
                 });
@@ -348,12 +346,12 @@ namespace careerPortals.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ASPFinal.Models.Account", b =>
+            modelBuilder.Entity("ASPFinal.Models.JobStatus", b =>
                 {
-                    b.Navigation("JobPosts");
+                    b.Navigation("jobPosts");
                 });
 
-            modelBuilder.Entity("ASPFinal.Models.JobStatus", b =>
+            modelBuilder.Entity("ASPFinal.Models.Account", b =>
                 {
                     b.Navigation("JobPosts");
                 });

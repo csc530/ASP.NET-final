@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using careerPortals.Data;
 
 namespace careerPortals.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211101200217_accountUnSubClass")]
+    partial class accountUnSubClass
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,43 +41,51 @@ namespace careerPortals.Data.Migrations
 
             modelBuilder.Entity("ASPFinal.Models.JobPost", b =>
                 {
-                    b.Property<int>("JobPostId")
+                    b.Property<int>("JobPostID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("AccountId")
+                        .HasColumnType("int");
 
                     b.Property<string>("JobName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("JobStatusId")
+                    b.Property<int>("JobStatusID")
                         .HasColumnType("int");
 
-                    b.Property<int>("PostedById")
-                        .HasColumnType("int");
+                    b.HasKey("JobPostID");
 
-                    b.HasKey("JobPostId");
-
-                    b.HasIndex("JobStatusId");
-
-                    b.HasIndex("PostedById");
+                    b.HasIndex("AccountId");
 
                     b.ToTable("JobPosts");
                 });
 
             modelBuilder.Entity("ASPFinal.Models.JobStatus", b =>
                 {
-                    b.Property<int>("JobStatusId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("JobStatusId");
+                    b.HasKey("Name");
 
                     b.ToTable("JobStatus");
+                });
+
+            modelBuilder.Entity("JobPostJobStatus", b =>
+                {
+                    b.Property<string>("JobStatusName")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("jobPostsJobPostID")
+                        .HasColumnType("int");
+
+                    b.HasKey("JobStatusName", "jobPostsJobPostID");
+
+                    b.HasIndex("jobPostsJobPostID");
+
+                    b.ToTable("JobPostJobStatus");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -280,21 +290,24 @@ namespace careerPortals.Data.Migrations
 
             modelBuilder.Entity("ASPFinal.Models.JobPost", b =>
                 {
-                    b.HasOne("ASPFinal.Models.JobStatus", "JobStatus")
+                    b.HasOne("ASPFinal.Models.Account", null)
                         .WithMany("JobPosts")
-                        .HasForeignKey("JobStatusId")
+                        .HasForeignKey("AccountId");
+                });
+
+            modelBuilder.Entity("JobPostJobStatus", b =>
+                {
+                    b.HasOne("ASPFinal.Models.JobStatus", null)
+                        .WithMany()
+                        .HasForeignKey("JobStatusName")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ASPFinal.Models.Account", "PostedBy")
-                        .WithMany("JobPosts")
-                        .HasForeignKey("PostedById")
+                    b.HasOne("ASPFinal.Models.JobPost", null)
+                        .WithMany()
+                        .HasForeignKey("jobPostsJobPostID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("JobStatus");
-
-                    b.Navigation("PostedBy");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -349,11 +362,6 @@ namespace careerPortals.Data.Migrations
                 });
 
             modelBuilder.Entity("ASPFinal.Models.Account", b =>
-                {
-                    b.Navigation("JobPosts");
-                });
-
-            modelBuilder.Entity("ASPFinal.Models.JobStatus", b =>
                 {
                     b.Navigation("JobPosts");
                 });

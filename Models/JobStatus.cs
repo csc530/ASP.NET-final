@@ -8,11 +8,11 @@ namespace ASPFinal.Models
 {
 	public class JobStatus
 	{
-
-		[Key, Display(Name ="Job status")]
+		public int JobStatusId { get; set;}
+		[Display(Name ="Status")]
 		public string Name { get; set; }
 
 		//child ref?
-		public List<JobPost> jobPosts { get; set; }
+		public List<JobPost> JobPosts { get; set; }
 	}
 }

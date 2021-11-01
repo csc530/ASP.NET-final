@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using careerPortals.Data;
 
 namespace careerPortals.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211101202624_renames2")]
+    partial class renames2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,14 +53,9 @@ namespace careerPortals.Data.Migrations
                     b.Property<int>("JobStatusId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PostedById")
-                        .HasColumnType("int");
-
                     b.HasKey("JobPostId");
 
                     b.HasIndex("JobStatusId");
-
-                    b.HasIndex("PostedById");
 
                     b.ToTable("JobPosts");
                 });
@@ -286,15 +283,7 @@ namespace careerPortals.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ASPFinal.Models.Account", "PostedBy")
-                        .WithMany("JobPosts")
-                        .HasForeignKey("PostedById")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("JobStatus");
-
-                    b.Navigation("PostedBy");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -346,11 +335,6 @@ namespace careerPortals.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("ASPFinal.Models.Account", b =>
-                {
-                    b.Navigation("JobPosts");
                 });
 
             modelBuilder.Entity("ASPFinal.Models.JobStatus", b =>
