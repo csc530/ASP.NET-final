@@ -29,25 +29,28 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.JobName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.JobStatus.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Account.Description)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.JobPostId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.JobPostId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.JobPostId">Delete</a>
-            </td>
-        </tr>
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.JobName)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Description)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.JobStatus.Name)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Account.Description)
+			</td>
+			@if(User.Identity.IsAuthenticated)
+			{
+				<td>
+					<a asp-action="Edit" asp-route-id="@item.JobPostId">Edit</a> |
+					<a asp-action="Details" asp-route-id="@item.JobPostId">Details</a> |
+					<a asp-action="Delete" asp-route-id="@item.JobPostId">Delete</a>
+				</td>
+			}
+			</tr>
 }
     </tbody>
 </table>
