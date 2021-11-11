@@ -9,7 +9,7 @@ namespace ASPFinal.Models
 	public class JobStatus
 	{
 		public int JobStatusId { get; set;}
-		[Display(Name ="Status")]
+		[Display(Name ="Status"), Required]
 		public string Name { get; set; }
 
 		//child ref?

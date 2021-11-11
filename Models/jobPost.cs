@@ -12,14 +12,12 @@ namespace ASPFinal.Models
 
 		[Required, Display(Name = "Job")]
 		public string JobName { get; set; }
+		public string Description { get; set; }
 		public int JobStatusId { get; set; }
-		public int PostedById { get; set;}
-		//child reference
+		public int AccountId { get; set;}
 
-		////parent refs
-		//public Account PostedBy { get; set;}
-		[Display(Name = "Status")]
+		//parent refs
 		public JobStatus JobStatus { get; set; }
-		public Account PostedBy { get; set;}
+		public Account Account { get; set;}
 	}
 }

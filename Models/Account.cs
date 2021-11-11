@@ -11,8 +11,11 @@ namespace ASPFinal.Models
 	public class Account
 	{
 		public int AccountId { get; set;}
+		[Required(AllowEmptyStrings =false)]
 		public string Name { get; set; }
 		public bool Buisness { get; set;}
+		[Required(AllowEmptyStrings =false),MaxLength(10000)]
+		public string Description { get; set; }
 		//children
 		public List<JobPost> JobPosts { get; set;}
 	}
