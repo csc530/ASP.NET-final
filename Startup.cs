@@ -32,6 +32,25 @@ namespace careerPortals
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
+            //external logins
+            services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    //reference google authentication section in appsettings.json
+                    IConfigurationSection googleAuth = Configuration.GetSection("Authentication:Google");
+                    //gets info from JSON file
+                    options.ClientId = googleAuth["clientId"];
+                    options.ClientSecret = googleAuth["clientSecret"];
+                })
+                .AddFacebook(options =>
+                {
+                    //reference google authentication section in appsettings.json
+                    IConfigurationSection faceAuth = Configuration.GetSection("Authentication:Facebook");
+                    //gets info from JSON file
+                    options.ClientId = faceAuth["clientId"];
+                    options.ClientSecret = faceAuth["clientSecret"];
+                });
+
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 //Add role management to project not enabled by default
                 .AddRoles<IdentityRole>()
