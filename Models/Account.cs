@@ -11,7 +11,7 @@ namespace ASPFinal.Models
 	public class Account
 	{
 		public int AccountId { get; set;}
-		[Required(AllowEmptyStrings =false)]
+		[Required(AllowEmptyStrings =false),Display(Name ="Name")]
 		public string Name { get; set; }
 		public bool Buisness { get; set;}
 		[Required(AllowEmptyStrings =false),MaxLength(10000)]

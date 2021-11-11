@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ASPFinal.Models;
 using careerPortals.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ASPFinal.Controllers
 {
+    [Authorize("")]
     public class JobPostsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -19,7 +21,9 @@ namespace ASPFinal.Controllers
             _context = context;
         }
 
+
         // GET: JobPosts
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.JobPosts.Include(j => j.Account).Include(j => j.JobStatus);
@@ -49,7 +53,7 @@ namespace ASPFinal.Controllers
         // GET: JobPosts/Create
         public IActionResult Create()
         {
-            ViewData["AccountId"] = new SelectList(_context.Accounts, "AccountId", "Description");
+            ViewData["AccountId"] = new SelectList(_context.Accounts, "AccountId", "Name");
             ViewData["JobStatusId"] = new SelectList(_context.JobStatus, "JobStatusId", "Name");
             return View();
         }
@@ -67,7 +71,7 @@ namespace ASPFinal.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AccountId"] = new SelectList(_context.Accounts, "AccountId", "Description", jobPost.AccountId);
+            ViewData["AccountId"] = new SelectList(_context.Accounts, "AccountId", "Name", jobPost.AccountId);
             ViewData["JobStatusId"] = new SelectList(_context.JobStatus, "JobStatusId", "Name", jobPost.JobStatusId);
             return View(jobPost);
         }
@@ -85,7 +89,7 @@ namespace ASPFinal.Controllers
             {
                 return NotFound();
             }
-            ViewData["AccountId"] = new SelectList(_context.Accounts, "AccountId", "Description", jobPost.AccountId);
+            ViewData["AccountId"] = new SelectList(_context.Accounts, "AccountId", "Name", jobPost.AccountId);
             ViewData["JobStatusId"] = new SelectList(_context.JobStatus, "JobStatusId", "Name", jobPost.JobStatusId);
             return View(jobPost);
         }
@@ -122,7 +126,7 @@ namespace ASPFinal.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AccountId"] = new SelectList(_context.Accounts, "AccountId", "Description", jobPost.AccountId);
+            ViewData["AccountId"] = new SelectList(_context.Accounts, "AccountId", "Name", jobPost.AccountId);
             ViewData["JobStatusId"] = new SelectList(_context.JobStatus, "JobStatusId", "Name", jobPost.JobStatusId);
             return View(jobPost);
         }

@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ASPFinal.Models;
 using careerPortals.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ASPFinal.Controllers
 {
+    [Authorize(Roles = "")]
     public class AccountsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,6 +22,7 @@ namespace ASPFinal.Controllers
         }
 
         // GET: Accounts
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Accounts.ToListAsync());

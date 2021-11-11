@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ASPFinal.Models;
 using careerPortals.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ASPFinal.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class JobStatusController : Controller
     {
         private readonly ApplicationDbContext _context;
