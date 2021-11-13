@@ -18,21 +18,25 @@
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-					<ul class="navbar-nav flex-grow-1">
-						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="JobPosts" asp-action="Index">Jobs</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="Accounts" asp-action="Index">Proffesionals</a>
-						</li>
-						<li>
-						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="JobStatus" asp-action="Index">Job status</a>
-						</li>
-						<input type="text" placeholder="Search🔍" class="" />
+					<div class="d-sm-inline-flex">
+						<ul class="navbar-nav flex-shrink-0">
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="JobPosts" asp-action="Index">Postings</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Accounts" asp-action="Index">Proffesionals</a>
+							</li>
+							@if(User.IsInRole("Administrator"))
+							{
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-area="" asp-controller="JobStatus" asp-action="Index">Job status</a>
+								</li>
+							}
+						</ul>
 						<!--Also added styles so it looks like just text until focused
 						Figure out action the search bar-->
-					</ul>
+						<input type="text" placeholder="Search🔍" class="align-content-md-start" />
+					</div>
 					<partial name="_LoginPartial" />
 				</div>
 			</div>
@@ -49,6 +53,7 @@
 			<small>
 				&copy; 2021 - Portals - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> -
 				<a href="https://github.com/csc530/ASP.NET-final.git" target="_blank">< Source Code /></a>
+				<br />
 				Christofer Cousins 1157052 (2021F) COMP-2084G-FDE - Server-Side Scripting ASP.NET
 			</small>
 		</div>
