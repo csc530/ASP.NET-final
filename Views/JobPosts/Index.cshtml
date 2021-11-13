@@ -1,56 +1,52 @@
 ﻿@model IEnumerable<ASPFinal.Models.JobPost>
 
 @{
-    ViewData["Title"] = "Index";
+	ViewData["Title"] = "Postings";
 }
 
-<h1>Index</h1>
+<h1>Job Postings</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.JobName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.JobStatus)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Account)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-		<tr>
-			<td>
-				@Html.DisplayFor(modelItem => item.JobName)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.Description)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.JobStatus.Name)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.Account.Description)
-			</td>
+<p><a asp-action="Create">Upload a Job</a></p>
+<table class="table sortable table-borderless">
+	<thead>
+		<tr class="border-bottom border-info">
+			<th>
+				@Html.DisplayNameFor(model => model.JobName)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Description)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.JobStatus)
+			</th>
 			@if(User.Identity.IsAuthenticated)
 			{
-				<td>
-					<a asp-action="Edit" asp-route-id="@item.JobPostId">Edit</a> |
-					<a asp-action="Details" asp-route-id="@item.JobPostId">Details</a> |
-					<a asp-action="Delete" asp-route-id="@item.JobPostId">Delete</a>
-				</td>
+				<th></th>
 			}
+		</tr>
+	</thead>
+	<tbody>
+		@foreach(var item in Model)
+		{
+			<tr class="border-top">
+				<td>
+					@Html.DisplayFor(modelItem => item.JobName)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Description)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.JobStatus.Name)
+				</td>
+				@if(User.Identity.IsAuthenticated)
+				{
+					<td>
+						<a asp-action="Edit" asp-route-id="@item.JobPostId">Edit</a> |
+						<a asp-action="Details" asp-route-id="@item.JobPostId">Details</a> |
+						<a asp-action="Delete" asp-route-id="@item.JobPostId">Delete</a>
+					</td>
+				}
 			</tr>
-}
-    </tbody>
+		}
+	</tbody>
 </table>

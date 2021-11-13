@@ -4,14 +4,14 @@
 	ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Buisnesses and Professionals</h1>
 
 <p>
-	<a asp-action="Create">Create New</a>
+	<a asp-action="Create">Create an account</a>
 </p>
-<table class="table">
+<table class="table sortable table-borderless">
 	<thead>
-		<tr>
+		<tr class="border-bottom border-info">
 			<th>
 				@Html.DisplayNameFor(model => model.Name)
 			</th>
@@ -21,13 +21,16 @@
 			<th>
 				@Html.DisplayNameFor(model => model.Description)
 			</th>
-			<th></th>
+			@if(User.Identity.IsAuthenticated)
+			{
+				<th></th>
+			}
 		</tr>
 	</thead>
 	<tbody>
 		@foreach(var item in Model)
 		{
-			<tr>
+			<tr class="border-top">
 				<td>
 					@Html.DisplayFor(modelItem => item.Name)
 				</td>
@@ -39,11 +42,21 @@
 				</td>
 				@if(User.Identity.IsAuthenticated)
 				{
-					<td>
-						<a asp-action="Edit" asp-route-id="@item.AccountId">Edit</a> |
-						<a asp-action="Details" asp-route-id="@item.AccountId">Details</a> |
-						<a asp-action="Delete" asp-route-id="@item.AccountId">Delete</a>
-					</td>
+					if(User.Identity.Name == item.UserId)
+					{
+						<td>
+							<a asp-action="Edit" asp-route-id="@item.AccountId">Edit</a> |
+							<a asp-action="Details" asp-route-id="@item.AccountId">Details</a> |
+							<a asp-action="Delete" asp-route-id="@item.AccountId">Delete</a>
+						</td>
+					}
+					else
+					{
+						<td>
+							<button href="" class="btn btn-success">View</button> |
+							<button href="" class="btn btn-info">Accept</button>
+						</td>
+					}
 				}
 			</tr>
 		}
