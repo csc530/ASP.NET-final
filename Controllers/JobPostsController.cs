@@ -53,7 +53,7 @@ namespace ASPFinal.Controllers
         // GET: JobPosts/Create
         public IActionResult Create()
         {
-            ViewData["AccountId"] = new SelectList(_context.Accounts, "AccountId", "Name");
+            ViewData["AccountId"] = new SelectList(_context.Accounts.Where(a=>a.UserId==User.Identity.Name), "AccountId", "Name");
             ViewData["JobStatusId"] = new SelectList(_context.JobStatus, "JobStatusId", "Name");
             return View();
         }

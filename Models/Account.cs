@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -20,6 +21,9 @@ namespace ASPFinal.Models
 		public bool Buisness { get; set; }
 		[Required(AllowEmptyStrings = false), MaxLength(10000)]
 		public string Description { get; set; }
+		//used for each as client profile to hire services
+		[Required, DefaultValue(false)]
+		public bool Client { get; set; }
 		//children
 		[InverseProperty("Account")]
 		public List<JobPost> JobPosts { get; set; }

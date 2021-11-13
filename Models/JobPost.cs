@@ -15,7 +15,7 @@ namespace ASPFinal.Models
 		public string JobName { get; set; }
 		public string Description { get; set; }
 		public int JobStatusId { get; set; }
-		[Required]
+		[Required, Display(Name ="Account")]
 		public int AccountId { get; set; }
 		public int? AcceptedById { get; set; }
 
