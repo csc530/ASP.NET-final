@@ -66,7 +66,7 @@ namespace ASPFinal.Controllers
 		// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Create([Bind("AccountId,Name,Buisness,Description")] Account account)
+		public async Task<IActionResult> Create([Bind("AccountId,UserId,Name,Buisness,Description")] Account account)
 		{
 			if(ModelState.IsValid)
 			{

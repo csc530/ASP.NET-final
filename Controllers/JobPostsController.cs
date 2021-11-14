@@ -90,6 +90,7 @@ namespace ASPFinal.Controllers
             {
                 return NotFound();
             }
+            ViewData["AcceptedById"] = new SelectList(_context.Accounts, "AccountId", "Name", jobPost.AcceptedById);
             ViewData["AccountId"] = new SelectList(_context.Accounts, "AccountId", "Name", jobPost.AccountId);
             ViewData["JobStatusId"] = new SelectList(_context.JobStatus, "JobStatusId", "Name", jobPost.JobStatusId);
             return View(jobPost);

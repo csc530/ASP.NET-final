@@ -14,7 +14,7 @@ namespace ASPFinal.Models
 	public class Account
 	{
 		public int AccountId { get; set; }
-		[Required, Display(Name = "Associated account")]
+		[Required(AllowEmptyStrings = false), Display(Name = "Associated account")]
 		public string UserId { get; set; }
 		[Required(AllowEmptyStrings = false), Display(Name = "Name"), MinLength(1)]
 		public string Name { get; set; }

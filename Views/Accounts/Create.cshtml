@@ -14,7 +14,7 @@
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 			<div class="form-group">
 				<label asp-for="UserId" class="control-label"></label>
-				<input disabled asp-for="UserId" class="form-control" value="@User.Identity.Name" />
+				<input readonly asp-for="UserId" class="form-control" value="@User.Identity.Name" />
 				<span asp-validation-for="UserId" class="text-danger"></span>
 			</div>
 			<div class="form-group">
