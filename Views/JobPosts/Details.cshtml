@@ -1,14 +1,14 @@
 ﻿@model ASPFinal.Models.JobPost
 
 @{
-    ViewData["Title"] = "Details";
+	ViewData["Title"] = "Details";
 }
 
 <h1>Details</h1>
 
 <div>
-    <h4>JobPost</h4>
-    <hr />
+	<h4>JobPost</h4>
+	<hr />
 	<dl class="row">
 		<dt class="col-sm-2">
 			@Html.DisplayNameFor(model => model.JobName)
@@ -43,6 +43,9 @@
 	</dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.JobPostId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+	@if(Model.Account.UserId == User.Identity.Name)
+		{
+		<a asp-action="Edit" asp-route-id="@Model.JobPostId">Edit</a> @"|".ToString();
+}
+	<a asp-action="Index">Back to List</a>
 </div>
