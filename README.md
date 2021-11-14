@@ -5,4 +5,6 @@
 <h3>Credits</h3>
 <ul>
 <li><a href="">For sortable tables<a/>
+<li><a href="https://fonts.google.com/"Fonts</a></li>
+<li><a href="https://coolors.co/">Colour palette inspiration</a></li>
 </ul>
