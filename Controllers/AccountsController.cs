@@ -31,7 +31,7 @@ namespace ASPFinal.Controllers
 				.OrderBy(a => a.Name)
 				.ToListAsync();
 			accounts.AddRange(await _context.Accounts
-				.Where(acc => acc.UserId != User.Identity.Name)
+				.Where(acc => acc.UserId != User.Identity.Name&&!acc.Client)
 				.OrderBy(a => a.Name)
 				.ToListAsync());
 			return View(accounts);

@@ -63,7 +63,7 @@ namespace ASPFinal.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("JobPostId,JobName,Description,JobStatusId,AccountId")] JobPost jobPost)
+        public async Task<IActionResult> Create([Bind("JobPostId,JobName,Description,JobStatusId,AccountId,AcceptedById")] JobPost jobPost)
         {
             if (ModelState.IsValid)
             {
@@ -71,6 +71,7 @@ namespace ASPFinal.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AcceptedById"] = new SelectList(_context.Accounts, "AccountId", "Name", jobPost.AcceptedById);
             ViewData["AccountId"] = new SelectList(_context.Accounts, "AccountId", "Name", jobPost.AccountId);
             ViewData["JobStatusId"] = new SelectList(_context.JobStatus, "JobStatusId", "Name", jobPost.JobStatusId);
             return View(jobPost);
@@ -99,7 +100,7 @@ namespace ASPFinal.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("JobPostId,JobName,Description,JobStatusId,AccountId")] JobPost jobPost)
+        public async Task<IActionResult> Edit(int id, [Bind("JobPostId,JobName,Description,JobStatusId,AccountId,AcceptedById")] JobPost jobPost)
         {
             if (id != jobPost.JobPostId)
             {
@@ -126,6 +127,7 @@ namespace ASPFinal.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AcceptedById"] = new SelectList(_context.Accounts, "AccountId", "Name", jobPost.AcceptedById);
             ViewData["AccountId"] = new SelectList(_context.Accounts, "AccountId", "Name", jobPost.AccountId);
             ViewData["JobStatusId"] = new SelectList(_context.JobStatus, "JobStatusId", "Name", jobPost.JobStatusId);
             return View(jobPost);
