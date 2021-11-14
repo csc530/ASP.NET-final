@@ -14,8 +14,9 @@ namespace ASPFinal.Models
 		[Required, Display(Name = "Job")]
 		public string JobName { get; set; }
 		public string Description { get; set; }
+		[Display(Name ="Status")]
 		public int JobStatusId { get; set; }
-		[Required, Display(Name ="Account")]
+		[Required(ErrorMessage ="Create an Account to be selected in professionals tab",AllowEmptyStrings =false), Display(Name = "Posted by")]
 		public int AccountId { get; set; }
 		public int? AcceptedById { get; set; }
 

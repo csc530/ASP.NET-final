@@ -27,11 +27,15 @@ header {
 	background-color: var(--primary);
 	position: static;
 }
-
 /*less pronounce space in footer paragraphs*/
 footer.footer {
 	line-height: 25px;
 	padding: 15px;
 	background-color: var(--tertiary);
 	border-top: 2.5px solid var(--tertiary);
+}
+.hidden {
+	visibility: hidden;
+	width: 0px;
+	height: 0px
 }

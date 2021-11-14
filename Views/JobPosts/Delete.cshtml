@@ -10,32 +10,38 @@
 <div>
     <h4>JobPost</h4>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.JobName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.JobName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.JobStatus)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.JobStatus.Name)
-        </dd class>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Account)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Account.Description)
-        </dd class>
-    </dl>
+	<dl class="row">
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.JobName)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.JobName)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.Description)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Description)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.JobStatus)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.JobStatus.Name)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.Account)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Account.Name)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.AcceptedBy)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.AcceptedBy.Name)
+		</dd>
+	</dl>
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="JobPostId" />
