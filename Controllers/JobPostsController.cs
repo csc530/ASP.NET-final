@@ -72,7 +72,7 @@ namespace ASPFinal.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["AcceptedById"] = new SelectList(_context.Accounts, "AccountId", "Name", jobPost.AcceptedById);
-            ViewData["AccountId"] = new SelectList(_context.Accounts, "AccountId", "Name", jobPost.AccountId);
+            ViewData["AccountId"] = new SelectList(_context.Accounts.Where(a => a.UserId == User.Identity.Name), "AccountId", "Name", jobPost.AccountId);
             ViewData["JobStatusId"] = new SelectList(_context.JobStatus, "JobStatusId", "Name", jobPost.JobStatusId);
             return View(jobPost);
         }
@@ -91,7 +91,7 @@ namespace ASPFinal.Controllers
                 return NotFound();
             }
             ViewData["AcceptedById"] = new SelectList(_context.Accounts, "AccountId", "Name", jobPost.AcceptedById);
-            ViewData["AccountId"] = new SelectList(_context.Accounts, "AccountId", "Name", jobPost.AccountId);
+            ViewData["AccountId"] = new SelectList(_context.Accounts.Where(a=>a.UserId==User.Identity.Name), "AccountId", "Name", jobPost.AccountId);
             ViewData["JobStatusId"] = new SelectList(_context.JobStatus, "JobStatusId", "Name", jobPost.JobStatusId);
             return View(jobPost);
         }
@@ -129,7 +129,7 @@ namespace ASPFinal.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["AcceptedById"] = new SelectList(_context.Accounts, "AccountId", "Name", jobPost.AcceptedById);
-            ViewData["AccountId"] = new SelectList(_context.Accounts, "AccountId", "Name", jobPost.AccountId);
+            ViewData["AccountId"] = new SelectList(_context.Accounts.Where(a => a.UserId == User.Identity.Name), "AccountId", "Name", jobPost.AccountId);
             ViewData["JobStatusId"] = new SelectList(_context.JobStatus, "JobStatusId", "Name", jobPost.JobStatusId);
             return View(jobPost);
         }
