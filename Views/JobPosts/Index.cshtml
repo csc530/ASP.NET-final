@@ -5,8 +5,10 @@
 }
 
 <h1>Job Postings</h1>
-
-<p><a asp-action="Create">Upload a Job</a></p>
+@if(User.Identity.IsAuthenticated)
+{
+	<p><a asp-action="Create">Upload a Job</a></p>
+}
 <table class="table sortable table-borderless">
 	<thead>
 		<tr class="border-bottom border-info">
