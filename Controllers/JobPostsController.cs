@@ -27,7 +27,7 @@ namespace ASPFinal.Controllers
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.JobPosts.Include(j => j.Account).Include(j => j.JobStatus);
-            return View(await applicationDbContext.ToListAsync());
+            return View("Index", await applicationDbContext.ToListAsync());
         }
 
         // GET: JobPosts/Details/5
@@ -35,7 +35,8 @@ namespace ASPFinal.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("404");
+               // return NotFound();
             }
 
             var jobPost = await _context.JobPosts
@@ -44,10 +45,11 @@ namespace ASPFinal.Controllers
                 .FirstOrDefaultAsync(m => m.JobPostId == id);
             if (jobPost == null)
             {
-                return NotFound();
+                return View("404");
+               // return NotFound();
             }
 
-            return View(jobPost);
+            return View("Details", jobPost);
         }
 
         // GET: JobPosts/Create
