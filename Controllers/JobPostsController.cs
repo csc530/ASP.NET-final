@@ -57,7 +57,7 @@ namespace ASPFinal.Controllers
         {
             ViewData["AccountId"] = new SelectList(_context.Accounts.Where(a=>a.UserId==User.Identity.Name), "AccountId", "Name");
             ViewData["JobStatusId"] = new SelectList(_context.JobStatus, "JobStatusId", "Name");
-            return View();
+            return View("Create");
         }
 
         // POST: JobPosts/Create
@@ -76,7 +76,7 @@ namespace ASPFinal.Controllers
             ViewData["AcceptedById"] = new SelectList(_context.Accounts, "AccountId", "Name", jobPost.AcceptedById);
             ViewData["AccountId"] = new SelectList(_context.Accounts.Where(a => a.UserId == User.Identity.Name), "AccountId", "Name", jobPost.AccountId);
             ViewData["JobStatusId"] = new SelectList(_context.JobStatus, "JobStatusId", "Name", jobPost.JobStatusId);
-            return View(jobPost);
+            return View("Create", jobPost);
         }
 
         // GET: JobPosts/Edit/5
@@ -84,18 +84,20 @@ namespace ASPFinal.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("404");
+                //return NotFound();
             }
 
             var jobPost = await _context.JobPosts.FindAsync(id);
             if (jobPost == null)
             {
-                return NotFound();
+                return View("404");
+                //return NotFound();
             }
             ViewData["AcceptedById"] = new SelectList(_context.Accounts, "AccountId", "Name", jobPost.AcceptedById);
             ViewData["AccountId"] = new SelectList(_context.Accounts.Where(a=>a.UserId==User.Identity.Name), "AccountId", "Name", jobPost.AccountId);
             ViewData["JobStatusId"] = new SelectList(_context.JobStatus, "JobStatusId", "Name", jobPost.JobStatusId);
-            return View(jobPost);
+            return View("Edit", jobPost);
         }
 
         // POST: JobPosts/Edit/5
@@ -107,7 +109,8 @@ namespace ASPFinal.Controllers
         {
             if (id != jobPost.JobPostId)
             {
-                return NotFound();
+                return View("404");
+                //return NotFound();
             }
 
             if (ModelState.IsValid)
@@ -117,11 +120,14 @@ namespace ASPFinal.Controllers
                     _context.Update(jobPost);
                     await _context.SaveChangesAsync();
                 }
+                //No code coverage for the below block as I can't replicate the DbUpdateConcurrencyException
+                //And you said it's alright if I just skip it
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!JobPostExists(jobPost.JobPostId))
                     {
-                        return NotFound();
+                        return View("404");
+                        //return NotFound();
                     }
                     else
                     {
@@ -133,7 +139,7 @@ namespace ASPFinal.Controllers
             ViewData["AcceptedById"] = new SelectList(_context.Accounts, "AccountId", "Name", jobPost.AcceptedById);
             ViewData["AccountId"] = new SelectList(_context.Accounts.Where(a => a.UserId == User.Identity.Name), "AccountId", "Name", jobPost.AccountId);
             ViewData["JobStatusId"] = new SelectList(_context.JobStatus, "JobStatusId", "Name", jobPost.JobStatusId);
-            return View(jobPost);
+            return View("Edit", jobPost);
         }
 
         // GET: JobPosts/Delete/5
@@ -141,7 +147,8 @@ namespace ASPFinal.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("404");
+                //return NotFound();
             }
 
             var jobPost = await _context.JobPosts
@@ -150,10 +157,11 @@ namespace ASPFinal.Controllers
                 .FirstOrDefaultAsync(m => m.JobPostId == id);
             if (jobPost == null)
             {
-                return NotFound();
+                return View("404");
+                //return NotFound();
             }
 
-            return View(jobPost);
+            return View("Delete", jobPost);
         }
 
         // POST: JobPosts/Delete/5
@@ -167,6 +175,7 @@ namespace ASPFinal.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        //No test coverage because it is called within the catch of DBConcurrencyException handler
         private bool JobPostExists(int id)
         {
             return _context.JobPosts.Any(e => e.JobPostId == id);
