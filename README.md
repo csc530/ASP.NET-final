@@ -3,7 +3,7 @@
 
 ### Unit tests
 
-please note that the folder [UnitTests]("/UnitTests/") must be taken out of the ASPFianl folder (the parent folder) or many duplication of something error occur. Then add it to the solution as a project. Thank you   
+please note that the folder [UnitTests](/UnitTests/) must be taken out of the ASPFianl folder (the parent folder) or many duplication of something error occur. Then add it to the solution as a project. Thank you   
 The reason there are in the same folder is to be able track it in Git and post to GitHub
 <h3><a href="https://aspfinal-portals.azurewebsites.net">Portals</a></h3>
 <p>My assignment is a web app to provide users a place to share the problems or requests to qualified individuals and buisnesses to complete it. Also for entrepeneurs and businesses to showcase their services to clients and secure, manage, and find jobs.</p>
